@@ -1,0 +1,22 @@
+{
+  "name": "traits-factory",
+  "version": "1.0.0",
+  "description": "Generate random traits from instructions list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nft-studio/traits-factory.git"
+  },
+  "author": "turinglabsorg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nft-studio/traits-factory/issues"
+  },
+  "homepage": "https://github.com/nft-studio/traits-factory#readme",
+  "dependencies": {
+    "roll": "^1.3.1"
+  }
+}
