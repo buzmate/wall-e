@@ -11,9 +11,9 @@ async function main(instructions_file) {
             let counters = {}
             for (let k in results) {
                 let traits = JSON.parse(fs.readFileSync('./results/' + instructions_file + '/' + results[k]))
-                for (let k in Object.keys(traits)) {
-                    let trait = Object.keys(traits)[k]
-                    let attribute = traits[trait]
+                for (let k in traits) {
+                    let trait = traits[k].trait_type
+                    let attribute = traits[k].value
                     if (counters[trait] === undefined) {
                         counters[trait] = {}
                     }

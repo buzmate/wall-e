@@ -16,7 +16,8 @@ async function main(instructions_file) {
         console.log('Found ' + instructions.length + ' instructions!')
 
         let to_generate = instructions[0].split(':')[1]
-        let traits = {}
+        let traits = []
+        let found = []
         console.log('Need to generate ' + to_generate + ' traits')
         let generated = fs.readdirSync('./results/' + instructions_file)
         if (generated.length < to_generate) {
@@ -34,8 +35,8 @@ async function main(instructions_file) {
                     let attribute = instruction.split('|')[1].split(':')[1].toLowerCase()
                     let dice = instruction.split('|')[0].split('>')[0]
                     let threshold = parseInt(instruction.split('|')[0].split('>')[1])
-
-                    if (traits[trait_name] === undefined) {
+                    
+                    if (found.indexOf(trait_name) === -1) {
                         console.log('-> TRAIT: ', trait_name)
                         console.log('-> ATTRIBUTE:', attribute)
                         console.log('--> SENDING ' + dice + ', pass if higher than ' + threshold)
@@ -43,7 +44,11 @@ async function main(instructions_file) {
                         const dice_roll = roll.roll(dice)
                         if (dice_roll.result > threshold) {
                             console.log('--> NICE SHOT! ' + dice_roll.result + ' IS ENOUGH!', dice, '>', threshold)
-                            traits[trait_name] = attribute
+                            traits.push({
+                                "trait_type": trait_name,
+                                "value": attribute
+                            })
+                            found.push(trait_name)
                         } else {
                             console.log('--> BAD LUCK ' + dice_roll.result + ' ISN\'T ENOUGH!')
                         }
@@ -52,10 +57,13 @@ async function main(instructions_file) {
             }
 
             fs.writeFileSync('./results/' + instructions_file + '/' + generated.length + '.json', JSON.stringify(traits))
-
+            delete traits
+            delete found
             let next = generated.length++
             if (next <= to_generate) {
-                main(instructions_file)
+                setTimeout(function(){
+                    main(instructions_file)
+                }, 10)
             }
         } else {
             console.log('Generation ended!')

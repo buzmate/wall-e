@@ -4,7 +4,8 @@
   "description": "Generate random traits from instructions list",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "node generate.js",
+    "stats": "node stats.js"
   },
   "repository": {
     "type": "git",
