@@ -18,50 +18,57 @@ async function main(instructions_file) {
         let to_generate = instructions[0].split(':')[1]
         let traits = []
         let found = []
+        let tot_traits = 0
+        for (let k in instructions) {
+            if (instructions[k].indexOf('#') === 0) {
+                tot_traits++
+            }
+        }
         console.log('Need to generate ' + to_generate + ' traits')
         let generated = fs.readdirSync('./results/' + instructions_file)
         if (generated.length < to_generate) {
-            for (let k in instructions) {
-                let instruction = instructions[k]
-                let skip = false
-                if (instruction.indexOf('GENERATE') !== -1) {
-                    skip = true
-                } else if (instruction.indexOf('#') === 0) {
-                    skip = true
-                }
+            while (traits.length < tot_traits) {
+                for (let k in instructions) {
+                    let instruction = instructions[k]
+                    let skip = false
+                    if (instruction.indexOf('GENERATE') !== -1) {
+                        skip = true
+                    } else if (instruction.indexOf('#') === 0) {
+                        skip = true
+                    }
 
-                if (!skip) {
-                    let trait_name = instruction.split('|')[1].split(':')[0].toLowerCase()
-                    let attribute = instruction.split('|')[1].split(':')[1].toLowerCase()
-                    let dice = instruction.split('|')[0].split('>')[0]
-                    let threshold = parseInt(instruction.split('|')[0].split('>')[1])
-                    
-                    if (found.indexOf(trait_name) === -1) {
-                        console.log('-> TRAIT: ', trait_name)
-                        console.log('-> ATTRIBUTE:', attribute)
-                        console.log('--> SENDING ' + dice + ', pass if higher than ' + threshold)
+                    if (!skip) {
+                        let trait_name = instruction.split('|')[1].split(':')[0].toLowerCase()
+                        let attribute = instruction.split('|')[1].split(':')[1].toLowerCase()
+                        let dice = instruction.split('|')[0].split('>')[0]
+                        let threshold = parseInt(instruction.split('|')[0].split('>')[1])
 
-                        const dice_roll = roll.roll(dice)
-                        if (dice_roll.result > threshold) {
-                            console.log('--> NICE SHOT! ' + dice_roll.result + ' IS ENOUGH!', dice, '>', threshold)
-                            traits.push({
-                                "trait_type": trait_name,
-                                "value": attribute
-                            })
-                            found.push(trait_name)
-                        } else {
-                            console.log('--> BAD LUCK ' + dice_roll.result + ' ISN\'T ENOUGH!')
+                        if (found.indexOf(trait_name) === -1) {
+                            console.log('-> TRAIT: ', trait_name)
+                            console.log('-> ATTRIBUTE:', attribute)
+                            console.log('--> SENDING ' + dice + ', pass if higher than ' + threshold)
+
+                            const dice_roll = roll.roll(dice)
+                            if (dice_roll.result > threshold) {
+                                console.log('--> NICE SHOT! ' + dice_roll.result + ' IS ENOUGH!', dice, '>', threshold)
+                                traits.push({
+                                    "trait_type": trait_name,
+                                    "value": attribute
+                                })
+                                found.push(trait_name)
+                            } else {
+                                console.log('--> BAD LUCK ' + dice_roll.result + ' ISN\'T ENOUGH!')
+                            }
                         }
                     }
                 }
             }
 
             fs.writeFileSync('./results/' + instructions_file + '/' + generated.length + '.json', JSON.stringify(traits))
-            delete traits
-            delete found
+
             let next = generated.length++
             if (next <= to_generate) {
-                setTimeout(function(){
+                setTimeout(function () {
                     main(instructions_file)
                 }, 10)
             }
