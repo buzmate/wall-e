@@ -77,7 +77,7 @@ idiot: 7.81%
 --
 ```
 
-# Create the NFTs
+# Install and run IPFS for the assets
 
 To create the NFTs we need an IPFS instance running on our pc, starting from there: https://docs.ipfs.io/how-to/command-line-quick-start/
 
@@ -88,6 +88,35 @@ ipfs daemon
 ```
 
 Put all the assets inside the folder `./assets/example`, using the same order, the merger script will link file n.0 with nft n.0.
+
+# Configure and upload to IPFS using Pinata service
+
+Let's use now the IPFS cli to upload entire folder:
+
+```
+ipfs add nfts/example -r
+```
+
+At the end of the process you will see the IPFS hash of the folder, in this case:
+
+```
+added QmPrxFUFBjdc5QGbJ3Ys41dnEx82Fboc1MVRJGto8rSCqj example
+```
+
+Now let's go to [Pinata](https://www.pinata.cloud/) service and obtain a secret access key. 
+To create an access key first go [here](https://app.pinata.cloud/keys) and then follow the process to add a New Key.
+
+When you've that key connect your browser to the local IPFS service: http://127.0.0.1:5001/webui, navigate to to "Settings" and add a "Pinning Service", choose Pinata and enter the key.
+
+It's time to upload all files to Pinata with:
+
+```
+ipfs pin remote add --service=Pinata QmPrxFUFBjdc5QGbJ3Ys41dnEx82Fboc1MVRJGto8rSCqj
+```
+
+# Create the NFTs
+
+Now it's all ready to create the 
 
 Run the script now: 
 
