@@ -62,18 +62,17 @@ NUMERIC RESULT:
   intelligence: { normal: 3003, genious: 2472, stupid: 3744, idiot: 781 }
 }
 --
-STATISTIC RESULT:
-| strength | 
-weak: 44.92%
-strong: 36.57%
-ultra: 9.82%
-normal: 8.69%
+| softness | 
+01: 40.00%
+05: 10.00%
+03: 10.00%
+02: 40.00%
 --
-| intelligence | 
-normal: 30.03%
-genious: 24.72%
-stupid: 37.44%
-idiot: 7.81%
+| pandosity | 
+03: 20.00%
+02: 50.00%
+04: 10.00%
+01: 20.00%
 --
 ```
 
