@@ -2,8 +2,8 @@
 
 ![Original Wall-E](https://giffiles.alphacoders.com/818/8183.gif)
 
-This is a trait generator for NFTS, this can be useful if you want to create a randomized selection of unique traits.
-This was heavily inspired by D&D (nerd alert here), so the idea is to generate traits by launching rolls.
+This is a complete nft generator for NFTS, this can be useful if you want to create a randomized selection of unique traits and package final NFTs uploading them to Pinata.
+This was heavily inspired by D&D (nerd alert here), so the idea is to generate traits by launching dice rolls instead of create some strict mathematical rules.
 
 # How to use it
 
