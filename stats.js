@@ -10,7 +10,8 @@ async function main(instructions_file) {
             console.log('Found ' + results.length + ' files to evaluate')
             let counters = {}
             for (let k in results) {
-                let traits = JSON.parse(fs.readFileSync('./results/' + instructions_file + '/' + results[k]))
+                let nft = JSON.parse(fs.readFileSync('./results/' + instructions_file + '/' + results[k]))
+                let traits = nft.attributes
                 for (let k in traits) {
                     let trait = traits[k].trait_type
                     let attribute = traits[k].value

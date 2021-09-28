@@ -77,6 +77,22 @@ idiot: 7.81%
 --
 ```
 
-# Use the traits
+# Create the NFTs
 
-Well....insert them in your metadata and..enjoy!
+To create the NFTs we need an IPFS instance running on our pc, starting from there: https://docs.ipfs.io/how-to/command-line-quick-start/
+
+After you've installed your instance run the daemon with:
+
+```
+ipfs daemon
+```
+
+Put all the assets inside the folder `./assets/example`, using the same order, the merger script will link file n.0 with nft n.0.
+
+Run the script now: 
+
+```
+npm run merge example
+```
+
+At the end you will see something like the folder we've leaved for example: `nfts/example`.

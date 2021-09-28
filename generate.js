@@ -19,6 +19,9 @@ async function main(instructions_file) {
         let traits = []
         let found = []
         let tot_traits = 0
+        let base_name = ""
+        let base_description = ""
+        let external_url = ""
         for (let k in instructions) {
             if (instructions[k].indexOf('#') === 0) {
                 tot_traits++
@@ -32,6 +35,15 @@ async function main(instructions_file) {
                     let instruction = instructions[k]
                     let skip = false
                     if (instruction.indexOf('GENERATE') !== -1) {
+                        skip = true
+                    } else if (instruction.indexOf('BASE_NAME') !== -1) {
+                        base_name = instruction.split(':')[1]
+                        skip = true
+                    } else if (instruction.indexOf('EXTERNAL_URL') !== -1) {
+                        external_url = instruction.replace('EXTERNAL_URL:','')
+                        skip = true
+                    }  else if (instruction.indexOf('BASE_DESCRIPTION') !== -1) {
+                        base_description = instruction.split(':')[1]
                         skip = true
                     } else if (instruction.indexOf('#') === 0) {
                         skip = true
@@ -63,8 +75,13 @@ async function main(instructions_file) {
                     }
                 }
             }
-
-            fs.writeFileSync('./results/' + instructions_file + '/' + generated.length + '.json', JSON.stringify(traits))
+            const nft = {
+                name: base_name + ' #' + generated.length,
+                description: base_description,
+                external_url: external_url + '/' + generated.length,
+                attributes: traits
+            }
+            fs.writeFileSync('./results/' + instructions_file + '/' + generated.length + '.json', JSON.stringify(nft))
 
             let next = generated.length++
             if (next <= to_generate) {

@@ -1,4 +1,7 @@
 node_modules/
-results/
+results/*
+!results/example
 instructions/*
 !instructions/example
+nfts/*
+!nfts/example
