@@ -1,4 +1,4 @@
-# Dice Roll Traits Factory
+# Massive NFTs Factory
 
 This is a trait generator for NFTS, this can be useful if you want to create a randomized selection of unique traits.
 This was heavily inspired by D&D (nerd alert here), so the idea is to generate traits by launching rolls.
