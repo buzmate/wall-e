@@ -1,4 +1,6 @@
-# Massive NFTs Factory
+# WALL-E, the bundler BOT
+
+![Original Wall-E](https://giffiles.alphacoders.com/818/8183.gif)
 
 This is a trait generator for NFTS, this can be useful if you want to create a randomized selection of unique traits.
 This was heavily inspired by D&D (nerd alert here), so the idea is to generate traits by launching rolls.
